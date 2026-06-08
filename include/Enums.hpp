@@ -12,3 +12,16 @@ enum class CellStatus
     Player1,                //* player 1 symbol
     Player2                 //* player 2 symbol
 };
+
+enum class GameMode
+{
+    PvP,                    //* Player vs Player
+    PvE                     //* Player vs AI
+};
+
+enum class Difficulty       //* PvE
+{
+    Easy,
+    Medium,
+    Hard
+};

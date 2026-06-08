@@ -7,8 +7,8 @@
 class Grid
 {
 private:
-    std::array<std::array<CellStatus, Constants::COLS>, Constants::ROWS> table{};
-    //* {} inizializza tutto a zero (primo elemento, Empty) così da evitare valori spazzatura, non serve il constructor in questo caso
+    std::array<std::array<CellStatus, Constants::COLS>, Constants::ROWS> table{CellStatus::Empty};
+    //* non serve il constructor in questo caso
 
 public:
     const CellStatus& getCell(int row, int col) const;              //! bastano 2 const
