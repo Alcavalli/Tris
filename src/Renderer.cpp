@@ -4,9 +4,30 @@
 
 Renderer::Renderer()
 {
+    //* Caricamento del font
     if (!font.openFromFile("assets/font.ttf"))
         throw std::runtime_error("ERROR: font not found in assets/font.ttf");
 
+    //* Creazione dello sfondo
+    background.setSize({static_cast<float>(Constants::WINDOW_WIDTH), static_cast<float>(Constants::WINDOW_HEIGHT)});
+    background.setFillColor(sf::Color(206, 206, 126));
+    background.setPosition({0, 0});
+
+    //* Creazione della griglia
+    v_line1.setSize({static_cast<float>(Constants::LINES_WIDTH), static_cast<float>(Constants::LINES_LENGHT)});
+    v_line2.setSize({static_cast<float>(Constants::LINES_WIDTH), static_cast<float>(Constants::LINES_LENGHT)});
+    h_line1.setSize({static_cast<float>(Constants::LINES_LENGHT), static_cast<float>(Constants::LINES_WIDTH)});
+    h_line2.setSize({static_cast<float>(Constants::LINES_LENGHT), static_cast<float>(Constants::LINES_WIDTH)});
+    v_line1.setFillColor(sf::Color(3, 3, 48));
+    v_line2.setFillColor(sf::Color(3, 3, 48));
+    h_line1.setFillColor(sf::Color(3, 3, 48));
+    h_line2.setFillColor(sf::Color(3, 3, 48));
+    v_line1.setPosition({static_cast<float>(Constants::CELL_SIZE), 0});
+    v_line2.setPosition({static_cast<float>(Constants::CELL_SIZE) * 2 + Constants::LINES_WIDTH, 0});
+    h_line1.setPosition({0, static_cast<float>(Constants::CELL_SIZE)});
+    h_line2.setPosition({0, static_cast<float>(Constants::CELL_SIZE) * 2 + Constants::LINES_WIDTH});
+
+    //* Creazione dei testi (invarianti)
     text_gameOver.emplace(font);        //* Si usa .emplace
     text_gameOver->setString("Game Over");          //! Occhio alle frecce e non punti
     text_gameOver->setCharacterSize(80);

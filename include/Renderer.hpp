@@ -9,6 +9,7 @@ class Renderer
 private:
     sf::Font font;
     std::optional<sf::Text> text_gameOver, text_turno, text_punteggio, text_restart;
+    sf::RectangleShape background, v_line1, v_line2, h_line1, h_line2;
     sf::Clock blink;
     bool textStatus{};
     sf::Vector2f toPixel(const sf::Vector2i& cell) const;
