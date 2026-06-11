@@ -1,5 +1,7 @@
 enum class GameStatus
 {
+    Menu,
+    OrderSelection,          //* Scegliere chi inizia tra l'AI e l'utente
     InProgress,
     Player1Win,             //* win player 1
     Player2Win,             //* win player 2

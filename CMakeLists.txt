@@ -13,6 +13,7 @@ add_executable(main                         # crea main.exe a partire dai file i
     src/Grid.cpp
     src/Renderer.cpp
     src/AI.cpp
+    src/Button.cpp
 )
 
 find_package(SFML 3 COMPONENTS Graphics REQUIRED)       # cerca SFML (già installato)

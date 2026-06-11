@@ -7,7 +7,7 @@
 class Game
 {
 private:
-    GameStatus stato_gioco{GameStatus::InProgress};
+    GameStatus stato_gioco{GameStatus::Menu};
     CellStatus turno_corrente{CellStatus::Player1};
     GameMode mode;           //! default in caso di fallback, va nel constructor
     AI environment;
