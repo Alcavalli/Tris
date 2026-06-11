@@ -54,6 +54,7 @@ void Game::processInput()
                 case GameStatus::Menu:
                     if (renderer.getButton(ButtonTypes::PvP)->isClicked(pos))
                     {
+                        reset();
                         mode = GameMode::PvP;
                         stato_gioco = GameStatus::InProgress;
                     }
@@ -79,11 +80,13 @@ void Game::processInput()
                 case GameStatus::OrderSelection:
                     if (renderer.getButton(ButtonTypes::First)->isClicked(pos))
                     {
+                        reset();
                         turno_corrente = CellStatus::Player1;
                         stato_gioco = GameStatus::InProgress;
                     }
                     else if (renderer.getButton(ButtonTypes::Second)->isClicked(pos))
                     {
+                        reset();
                         turno_corrente = CellStatus::Player2;
                         stato_gioco = GameStatus::InProgress;
                     }
@@ -96,7 +99,7 @@ void Game::processInput()
                     break;
                 case GameStatus::InProgress:
                     if (renderer.getButton(ButtonTypes::Back)->isClicked(pos))
-                        stato_gioco = GameStatus::OrderSelection;
+                        stato_gioco = GameStatus::Menu;
                     else
                         update(mouseClick->position.y / Constants::CELL_SIZE, mouseClick->position.x / Constants::CELL_SIZE);   //! Ricorda: riga e colonna, quindi y e x (non x e y)
                     break;
