@@ -13,6 +13,8 @@ private:
     AI environment;
     Grid table;
     sf::RenderWindow window;
+    sf::Clock ai_clock;
+    bool ai_waiting{};
     Renderer renderer;
 
 public:

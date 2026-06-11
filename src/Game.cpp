@@ -9,7 +9,30 @@ void Game::run()
         // 1. Input + Update integrato
         processInput();
 
-        // 2. Renderer
+        // 2. Delay turno AI
+        if (ai_waiting && ai_clock.getElapsedTime().asMilliseconds() >= 500)
+        {
+            ai_waiting = false;
+            auto [row_ai, col_ai] = environment.makeMove(table);
+            table.setCell(row_ai, col_ai, CellStatus::Player2);
+            switch (table.checkWinner())
+            {
+            case CellStatus::Empty:
+                if (table.isFull())
+                    stato_gioco = GameStatus::Draw;
+                else
+                    turno_corrente = CellStatus::Player1;
+                break;
+            case CellStatus::Player1:
+                stato_gioco = GameStatus::Player1Win;
+                break;
+            case CellStatus::Player2:
+                stato_gioco = GameStatus::Player2Win;
+                break;
+            }
+        }
+
+        // 3. Renderer
         render();
     }
 }
@@ -23,7 +46,7 @@ void Game::processInput()
 
         if (const auto *mouseClick{event->getIf<sf::Event::MouseButtonPressed>()})
             if (mouseClick->button == sf::Mouse::Button::Left)
-                update(mouseClick->position.y / Constants::CELL_SIZE, mouseClick->position.x / Constants::CELL_SIZE); //! Ricorda: riga e colonna, quindi y e x (non x e y)
+                update(mouseClick->position.y / Constants::CELL_SIZE, mouseClick->position.x / Constants::CELL_SIZE);       //! Ricorda: riga e colonna, quindi y e x (non x e y)
 
         if (const auto *keyPress{event->getIf<sf::Event::KeyPressed>()})
             if (stato_gioco != GameStatus::InProgress)
@@ -59,23 +82,8 @@ void Game::update(int row, int col)
 
     if (mode == GameMode::PvE && stato_gioco == GameStatus::InProgress)
     {
-        auto [row_ai, col_ai] = environment.makeMove(table);
-        table.setCell(row_ai, col_ai, CellStatus::Player2);
-        switch (table.checkWinner())
-        {
-        case CellStatus::Empty:
-            if (table.isFull())
-                stato_gioco = GameStatus::Draw;
-            else
-                turno_corrente = CellStatus::Player1;
-            break;
-        case CellStatus::Player1:
-            stato_gioco = GameStatus::Player1Win;
-            break;
-        case CellStatus::Player2:
-            stato_gioco = GameStatus::Player2Win;
-            break;
-        }
+        ai_waiting = true;
+        ai_clock.restart();
     }
 }
 
