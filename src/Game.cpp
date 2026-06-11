@@ -81,14 +81,14 @@ void Game::processInput()
                     if (renderer.getButton(ButtonTypes::First)->isClicked(pos))
                     {
                         reset();
-                        turno_corrente = CellStatus::Player1;
                         stato_gioco = GameStatus::InProgress;
                     }
                     else if (renderer.getButton(ButtonTypes::Second)->isClicked(pos))
                     {
                         reset();
-                        turno_corrente = CellStatus::Player2;
                         stato_gioco = GameStatus::InProgress;
+                        ai_waiting = true;
+                        ai_clock.restart();
                     }
                     else if (renderer.getButton(ButtonTypes::Back)->isClicked(pos))
                     {
