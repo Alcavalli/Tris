@@ -124,13 +124,11 @@ void Game::processInput()
             window.close();
 
         if (const auto *mouseClick{event->getIf<sf::Event::MouseButtonPressed>()})
-        {
             if (mouseClick->button == sf::Mouse::Button::Left)
                 handleClick(mouseClick->position);
 
-            if (const auto* touch{event->getIf<sf::Event::TouchBegan>()})
+        if (const auto* touch{event->getIf<sf::Event::TouchBegan>()})
                 handleClick(sf::Vector2i(touch->position));
-        }
 
         if (const auto *keyPress{event->getIf<sf::Event::KeyPressed>()})
             if (stato_gioco != GameStatus::InProgress && stato_gioco != GameStatus::Menu && stato_gioco != GameStatus::OrderSelection && !restart_waiting)
